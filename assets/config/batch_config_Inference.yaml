@@ -1,0 +1,51 @@
+# 复现原始的spectralNet 代码
+batch_size: 4096
+lr: 1e-3 #learning rate
+beta: 2 # loss beta超参数
+
+# datasets:  [ "MNIST","Digits","USPS", "SOGOU10K","COIL","FashionMNIST","QMNIST","Letters","Digits",]
+# datasets:  [ "QMNIST"]
+# datasets:  [ "SOGOU10K","SOGOU10K"]
+datasets:  [  "REUTERS10K"]
+# datasets:  [ "COIL","FashionMNIST","QMNIST"] #"COIL","CIFAR10","SVHN""MNIST","QMNIST","USPS","FashionMNIST","Letters","Digits",
+# trains: ["SpectralNet_oldLoss", "Attention_L21", "SpectralNet_L21","Attention1_L21","AttentionN_L21"]
+# trains: [ "Attention_L21", "SpectralNet_L21","Attention1_L21","AttentionN_L21"]
+epochs: 5
+embedding: True # 是否embedding
+
+# train_spectralNet 特定参数
+data: "mnist" # 使用的数据
+n_clusters: 10 # 类别个数 针对fer=7
+model_type: "batch" # old_spectralNet L21_spectralNet, L21_trasformerNet,batch是批量。
+test_batch_size: 10000
+file: "" # 保存的预训练模型
+gpu: "0"  # 指定执行的GPU 可选参数， 0， 1
+
+#AE -参数
+AE_epochs: 200 # 论文默认
+input_size: 28*28 # 28*28 , 224*224
+code_size: 10 # embedding维度
+AE_file: "output/pretrain/AE/AE_cz10_e200_Mnist.pkl"
+
+# ViT 模型参数 现在默认采用的deit 的eeffecientVit
+isVit: False
+depth: 4 
+num_head: 12 # 默认
+patch_size: 4
+embed_dim: 48
+channels: 1
+image_size: 28
+isDivW: False #除以样本数量
+vitModel: "TFSNet(args=args).to(device)" #加载VIT模型。
+
+# 默认参数
+verbose: True # 输出训练中的print
+n_neighbors: 2 # 孪生网络邻居数量
+use_approx: True
+aprox: False
+logdir: "output/logInfo/"
+imgdir: "output/imgs/"
+vizdir: "nowOut/"
+inferDir: "output/pretrain/NET/"
+aedir: "output/pretrain/AE/AE_"
+outExeName: "exp_result/L1loss/Inference_result"

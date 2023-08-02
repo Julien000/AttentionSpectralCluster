@@ -1,0 +1,4 @@
+[ "FashionMNIST", "CIFAR10","STL10","SVHN"]
+[ "MNIST","QMNIST","Letters","Digits","USPS"]
+常用的测试数据集
+[ "FashionMNIST","MNIST","QMNIST","Letters","Digits","USPS"]

@@ -1,0 +1,45 @@
+# 将参数列表分为两个部分，分别是basic 代表每个方法都会用到的， 对于特殊的单独建立一个配置文件用于加载特殊参数。
+beta: 4 # loss beta 作为备用。
+lr: 1e-3
+data: "mnist" 
+n_clusters: 10 # 类别个数 针对fer=7
+test_batch_size: 4096
+file: "" # 保存的预训练模型
+load_dataset: 'load_mnist(isVit=args.isVit)'
+input_size: 28*28 # 28*28 , 224*224
+
+embedding: True # 是否embedding
+AE_epochs: 200 # 论文默认
+code_size: 10 # embedding维度
+
+# 孪生网络部分 
+# TODO: 目前只是完成了图片数据集的相似网络模型计算。
+siaming: False
+siam_metric: False
+
+traindir: "output/excel/train_result/" #训练输出文件路径
+pretrainDir: "output/pretrain/NET/"
+aedir: "output/pretrain/AE/AE_"
+siamdir: "output/pretrain/SIAME/siame_"
+outExeName: "output/excel/test_result/"
+logdir: "output/logInfo/"
+cofigdir: "assets/config/"
+
+# 默认参数
+verbose: True # 输出训练中的信息
+n_neighbors: 2 # 孪生网络邻居数量
+use_approx: True
+aprox: False
+
+
+# ViT 模型参数 现在默认采用的deit 的eeffecientVit
+isVit: False
+depth: 4 
+num_head: 12 # 默认
+patch_size: 4
+embed_dim: 48
+channels: 1
+image_size: 28
+isDivW: False #除以样本数量
+
+

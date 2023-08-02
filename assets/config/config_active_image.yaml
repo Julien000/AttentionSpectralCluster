@@ -1,0 +1,32 @@
+
+betaList: [2] #目前最好-在qmnist上最好
+# betaList: [0.1 , 0.2 ,0.5]#目前最好-在qmnist上最好
+# betaList: [0, 0.1, 0.2,  0.5,  1,  2,  3,  4, 5]#目前最好-在qmnist上最好
+# betaList: [1, 2, 2.5, 3, 3.5, 4, 4.5]
+# tau: 0.5 # 0, 0.1 , 0.2, 0.5 
+# betaList: [3.5, 4]
+batch_size: 2048 #
+# datasets:  ["QMNIST"] #"MNIST","USPS","FashionMNIST","Letters","Digits"
+# datasets:  ["Digits"] #"MNIST","USPS","FashionMNIST","Letters","Digits"
+# datasets:  ["MNIST","Digits","USPS","COIL","QMNIST","FashionMNIST","Letters"] #"MNIST","USPS","FashionMNIST","Letters","Digits"
+# datasets:  ["MNIST"] #"MNIST","USPS","FashionMNIST","Letters","Digits","Digits","USPS","COIL","Letters","FashionMNIST"
+# datasets:  ['COIL'] #"MNIST","USPS","FashionMNIST","Letters","Digits" #MQUF
+# datasets:  ["Letters","Digits","COIL"] #"MNIST","USPS","FashionMNIST","Letters","Digits" #LDC
+# datasets:  [ "COIL","FashionMNIST","QMNIST"] #"COIL","CIFAR10","SVHN""MNIST","QMNIST","USPS","FashionMNIST","Letters","Digits",
+# L21 loss 的训练方法
+# trains: ["SpectralNet_L21"]
+# trains: ["Test"]
+# trains: ["AttentionN_L21", "SpectralNet_oldLoss"] #, "SpectralNet_L21"
+trains: ["AttentionN_L21"] #, "SpectralNet_L21"
+# trains: ["SpectralNet_oldLoss","SpectralNet_L21","Attention1_L21","AttentionN_L21","Attention_L21"] #,"Attention_L21", "SpectralNet_L21"
+# trains: [ "SpectralNet_oldLoss"]
+
+# L1 loss 的训练方法
+# trains: [Attention1_L1, Attention3_L1] #"SpectralNet_oldLoss", "train_SpectralNet_L1",'train_SpectralNet_L1_old'
+# trains: [SpectralNet_oldLoss] #"", ", Attention1_L1"
+# trains: [ "SpectralNet_L1","SpectralNet_oldLoss",'train_SpectralNet_L1_old'] #"", ", Attention1_L1"
+epochs: 201
+gpu: "0"  # 指定执行的GPU 可选参数， 0， 1
+log_fileName: 'Train_LossImage_'
+dataType: "Image" # "TEXT" "IMAGE"
+

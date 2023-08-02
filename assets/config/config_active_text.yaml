@@ -1,0 +1,21 @@
+
+# betaList: 0, 0.1, 0.2 , 0.5, 1, 2, 2.5, 3, 4, 5 # L21的正则参数值。 2.5的结果多还不错
+betaList: [ 2.5] # L21的正则参数值。 2.5的结果多还不错
+# betaList: [0, 0.1, 0.2 , 0.5, 1, 2,  3, 4, 5] # L21的正则参数值。 2.5的结果多还不错
+batch_size: 2048
+datasets:  ["REUTERS10K","SOGOU10K"] # , "REUTERS" REUTERS20K,"REUTERS"， "REUTERS20Knorm"，"AGNEWSnorm","REUTERS20K", "AGNEWS"
+# datasets:  [ "REUTERS10K"] #, "AGNEWS" 
+# , "REUTERS" REUTERS20K,"REUTERS10K"， "AGNEWS"，"SOGOU10K","REUTERS",
+# datasets:  ["REUTERS20Knorm","AGNEWSnorm"] # "AGNEWS", "REUTERS"， REUTERS20K,"REUTERS"， 
+# trains: ["SpectralNet_L21"]
+# trains: ["AttentionN_L21"]
+# trains: ["SpectralNet_oldLoss", "AttentionN_L21"] #"SpectralNet_oldLoss" ,, "SpectralNet_L21", "Attention1_L21"
+# trains: ["SpectralNet_oldLoss"] #"SpectralNet_oldLoss" ,, "SpectralNet_L21", "Attention1_L21"
+trains: ["AttentionN_L21"] #"SpectralNet_oldLoss" ,, "SpectralNet_L21", "Attention1_L21"
+# trains: ["Attention1_L21","Attention_L21","AttentionN_L21", "SpectralNet_L21"] #"SpectralNet_oldLoss" ,
+epochs: 201
+log_fileName: 'TEXT_trainLoss_'
+dataType: "TEXT" # "TEXT" "IMAGE"
+gpu: "0"  # 指定执行的GPU 可选参数， 0， 1
+
+
