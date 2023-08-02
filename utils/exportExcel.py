@@ -44,6 +44,10 @@ def export_excel(sheet_name='sheet_name',
     #save file
    
     savepath = savepath
+    last_slash_pos = sheet_name.rfind('/')
+    savedir = sheet_name[:last_slash_pos]
+    if not os.path.exists(savedir):
+        os.makedirs(savedir)
     # os.makedirs(sheet_name+ '_' + str(datetime.now())[:10]+".xls")
     book.save(sheet_name+ '_' + str(datetime.now())[:10]+".xls")
    
@@ -58,10 +62,12 @@ def export_csv(path, rowList):
         ]
         https://blog.csdn.net/allway2/article/details/118071806
     '''
-    if not os.path.exists(path):
-        # os.makedirs(path)
-        file = open(path, 'w')
-        file.close()
+    last_slash_pos = path.rfind('/')
+    savedir = path[:last_slash_pos]
+    if not os.path.exists(savedir):
+        os.makedirs(savedir)
+    file = open(path, 'w')
+    file.close()
 
     with open(path, 'w', encoding='UTF-8',newline='') as file:
         writer = csv.writer(file)
