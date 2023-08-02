@@ -9,7 +9,7 @@ load_dataset: 'load_mnist(isVit=args.isVit)'
 input_size: 28*28 # 28*28 , 224*224
 
 embedding: True # 是否embedding
-AE_epochs: 200 # 论文默认
+AE_epochs: 1 # 论文默认
 code_size: 10 # embedding维度
 
 # 孪生网络部分 

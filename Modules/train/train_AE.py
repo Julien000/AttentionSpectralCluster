@@ -66,6 +66,9 @@ def train_AE(train_dataloader,val_dataloader, file,args):
       if act_lr <= 1e-7:
         break
   if file!= None:
+    dir = "output/pretrain/AE"
+    if not os.path.exists(dir):
+      os.makedirs(dir)
     torch.save(model, file)
   return model
 
@@ -114,6 +117,9 @@ def train_AE_text(train_dataloader,val_dataloader,file,args):
       if act_lr <= 1e-7:
         break
   if file!= None:
+    dir = "output/pretrain/AE"
+    if not os.path.exists(dir):
+      os.makedirs(dir)
     torch.save(model, file)
   return model
 
@@ -163,5 +169,8 @@ def train_AE_text2(train_dataloader,val_dataloader,file,args):
       if act_lr <= 1e-7:
         break
   if file!= None:
+    dir = "output/pretrain/AE"
+    if not os.path.exists(dir):
+      os.makedirs(dir)
     torch.save(model, file)
   return model

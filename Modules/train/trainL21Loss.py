@@ -1,4 +1,5 @@
 import logging
+import os
 import torch.optim as optim
 import torch
 from tqdm import tqdm
@@ -140,6 +141,9 @@ def train_SpectralNet_L21( train_dataloader,   test_dataloader,  model_ae,  args
   #TODO: 6、导出训练结果
   exportExcel.export_csv(path=args.traindir+args.model_type+".csv", rowList=csvRows)
   # 保存模型
+  dir = "output/pretrain/NET"
+  if not os.path.exists(dir):
+      os.makedirs(dir)
   torch.save(model, args.pretrainDir+model_type+".pkl")
   return rows
 
@@ -259,6 +263,9 @@ def train_SpectralNet_att1( train_dataloader, test_dataloader, model_ae, args, m
   #TODO: 6、导出训练结果
   exportExcel.export_csv(path=args.traindir+args.model_type+".csv", rowList=csvRows)
   # 保存模型
+  dir = "output/pretrain/NET"
+  if not os.path.exists(dir):
+      os.makedirs(dir)
   torch.save(model, args.pretrainDir+model_type+".pkl")
   return rows
 
@@ -380,6 +387,9 @@ def train_SpectralNet_att3( train_dataloader, test_dataloader, model_ae, args, m
   #TODO: 6、导出训练结果
   exportExcel.export_csv(path=args.traindir+args.model_type+".csv", rowList=csvRows)
   # 保存模型
+  dir = "output/pretrain/NET"
+  if not os.path.exists(dir):
+      os.makedirs(dir)
   torch.save(model, args.pretrainDir+model_type+".pkl")
   return rows
 
@@ -513,6 +523,9 @@ def train_SpectralNet_attNet( train_dataloader, test_dataloader, model_ae, args,
   exportExcel.export_csv(path=args.traindir+args.model_type+args.log_fileName+".csv", rowList=csvRows)
  
   # 保存模型
+  dir = "output/pretrain/NET"
+  if not os.path.exists(dir):
+      os.makedirs(dir)
   torch.save(model, args.pretrainDir+model_type+".pkl")
   return rows
 
@@ -628,5 +641,8 @@ def train_SpectralNet_Test( train_dataloader,   test_dataloader,  model_ae,  arg
   #TODO: 6、导出训练结果
   exportExcel.export_csv(path=args.traindir+args.model_type+".csv", rowList=csvRows)
   # 保存模型
+  dir = "output/pretrain/NET"
+  if not os.path.exists(dir):
+      os.makedirs(dir)
   torch.save(model, args.pretrainDir+model_type+".pkl")
   return rows
