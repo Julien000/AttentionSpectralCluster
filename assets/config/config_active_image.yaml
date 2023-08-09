@@ -25,7 +25,7 @@ trains: ["AttentionN_L21"] #, "SpectralNet_L21"
 # trains: [Attention1_L1, Attention3_L1] #"SpectralNet_oldLoss", "train_SpectralNet_L1",'train_SpectralNet_L1_old'
 # trains: [SpectralNet_oldLoss] #"", ", Attention1_L1"
 # trains: [ "SpectralNet_L1","SpectralNet_oldLoss",'train_SpectralNet_L1_old'] #"", ", Attention1_L1"
-epochs: 1
+epochs: 200
 gpu: "0"  # 指定执行的GPU 可选参数， 0， 1
 log_fileName: 'Train_LossImage_'
 dataType: "Image" # "TEXT" "IMAGE"

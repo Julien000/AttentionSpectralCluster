@@ -146,7 +146,8 @@ class L21LossV2(nn.Module):
         L=torch.from_numpy(L).to(device).double()
         # L=torch.from_numpy(L).to(device).float()
         YLY = torch.mm(L,Y)+torch.mm(L.T,Y)
-        D=torch.diag((torch.norm(Y,p=2,dim=1))) 
+        # D=torch.diag((torch.norm(Y,p=2,dim=1)))  # V1
+        D=torch.diag(1.0/(torch.norm(Y,p=2,dim=1))) 
         DY=self.beta*torch.mm(D,Y)
         # loss =torch.abs(torch.sum(YLY+DY) )/ W.shape[0]
         loss =torch.abs(torch.sum(YLY+DY) )
