@@ -132,12 +132,51 @@ class L21LossV2(nn.Module):
         grads=YLY+DY
         return loss,grads
     
-class L21LossV2(nn.Module):
+class L21Loss_D(nn.Module):
+    
+    def __init__(self,beta=1.0,batch_size=2048,isDivW=False):
+        super(L21Loss_D, self).__init__()
+        self.isDivW=isDivW
+        self.beta = batch_size
+        self.D = None
+        
+    def forward(self, Y, W):
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        # 有这样的等价关系吗 YtLY =  YtL + LtY
+        L=csgraph.laplacian(W ,normed=False)
+        L=torch.from_numpy(L).to(device).double()
+        Ysize = Y.shape[0]
+        if self.D == None:
+        # 针对第一个batch 不存在D t-1
+            matrix = torch.zeros(Ysize, Ysize)
+            self.D = matrix.diagonal().fill_(1.0)
+            self.D = self.D.to(device).double()
+
+        if Ysize != self.D.shape[0]:
+            # 针对最后一个批次!= last batch D矩阵的维度的时候, 截取子矩阵。
+            sub_D = self.D[:Ysize, :Ysize]
+            A = (L+sub_D)
+            YLY = torch.mm(A,Y)+torch.mm(A.T,Y)
+            D=torch.diag((torch.norm(Y,p=2,dim=1))) 
+            self.D[:Ysize, :Ysize] = D
+        else:      
+            A = (L+self.D)
+            YLY = torch.mm(A,Y)+torch.mm(A.T,Y)
+            D=torch.diag((torch.norm(Y,p=2,dim=1))) 
+            self.D = D
+
+        DY=self.beta*torch.mm(D,Y)
+        loss =torch.abs(torch.sum(YLY+DY) )
+        grads=YLY+DY
+        return loss,grads
+
+class L21LossV3(nn.Module):
     
     def __init__(self,beta=1.0,isDivW=False):
         super(L21LossV2, self).__init__()
         self.isDivW=isDivW
         self.beta = beta
+        # self.lastD = torch.
         
     def forward(self, Y, W):
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
