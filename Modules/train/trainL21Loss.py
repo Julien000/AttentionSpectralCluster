@@ -405,6 +405,7 @@ def train_SpectralNet_attNet( train_dataloader, test_dataloader, model_ae, args,
   optimizer = optim.Adam(model.parameters(), lr=args.lr)
   scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min')
   criterion = L21LossV2(beta=args.beta)
+  # criterion = L21Loss_D(beta=args.beta)
   # criterion = L1LossV2(beta=args.beta)
   # criterion = NoNormLoss(beta=args.beta)
   # criterion = L0Loss(beta=args.beta)
