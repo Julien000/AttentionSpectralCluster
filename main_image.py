@@ -11,8 +11,9 @@ from Modules.train.train_AE import *
 from Modules.train.trainL21Loss import *
 from Modules.train.trainOldLoss import *
 from utils.loadData import * # 加载数据集模块
-
+from torch.utils.data import Subset
 import sys
+import math
 
 from utils.siameseData import CustomSiamesesDataset, SiameseDataset
 
@@ -38,10 +39,10 @@ def main(args):
     }
     trainMap={
         "SpectralNet_oldLoss": train_SpectralNet_oldLoss, # 原始spectralNnet
-        "Attention1_L21": train_SpectralNet_att1, # 单层注意力层
-        "Attention_L21": train_SpectralNet_att3, # 最优的注意力层
+        # "Attention1_L21": train_SpectralNet_att1, # 单层注意力层
+        # "Attention_L21": train_SpectralNet_att3, # 最优的注意力层
         "AttentionN_L21": train_SpectralNet_attNet, # 纯注意力网络
-        "SpectralNet_L21": train_SpectralNet_L21, # 原始spectralNet 和L21范数
+        # "SpectralNet_L21": train_SpectralNet_L21, # 原始spectralNet 和L21范数
         "Test": train_SpectralNet_Test # 原始spectralNet 和L21范数
     }
 
@@ -52,6 +53,7 @@ def main(args):
         # 加载数据集
         trainsets, testsets, test_batch_size = dataMap[data_idx](isVit=args.isVit)
         args.test_batch_size = test_batch_size
+        # trainsets =Subset( trainsets,range(0,3000))
         train_dataloader = DataLoader(trainsets, batch_size=args.batch_size, shuffle=True)
         test_dataloader = DataLoader(testsets, batch_size=args.batch_size, shuffle=False)
         # 更新模型参数
@@ -130,7 +132,7 @@ if __name__ == "__main__":
     args.lr =eval(args.lr)
     logFilename =args.config+"_"+args.log_fileName
     logger_init(log_file_name=logFilename, log_dir=args.logdir)
-    logging.info("========staring exective the programing==========")
+    logging.info("======== execute the programing==========")
     logging.info(f"=====parameters:{args}")
 
     seed_torch()#固定网络模型的参数。--为了实验能够更好的复现。

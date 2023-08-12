@@ -6,7 +6,6 @@ import yaml
 from sklearn.metrics import normalized_mutual_info_score
 from sklearn.cluster import KMeans
 import torch
-import argparse
 from sklearn.neighbors import kneighbors_graph,radius_neighbors_graph
 from copy import copy
 from utils.metrics import acc, get_rand_index_and_f_measure, purity
@@ -15,6 +14,70 @@ import numpy as np
 HERE = os.path.abspath(__file__)
 HEREDIR = os.path.dirname(HERE)
 EXAMPLESDIR = os.path.dirname(HEREDIR)
+
+import torch
+
+def top_k_eigvec_torch(matrix, k):
+    """
+    计算矩阵的前k个特征向量，并按特征值从大到小排序。
+    
+    参数：
+    matrix (torch.Tensor): 输入的矩阵。
+    k (int): 要选择的特征向量数量。
+      
+    返回：
+    top_k_eigenvectors (torch.Tensor): 排序后的前k个特征向量。
+    write by liubo 2023-08-11 (由chatgpt生成)
+    """
+    # 计算特征向量和特征值
+    torch.set_num_threads(24) #设置最大的线程数，以提高计算特征向量的速度
+    
+    has_nan_inf = torch.isnan(matrix).any() or torch.isinf(matrix).any()
+    if has_nan_inf:
+         nan_indices = torch.isnan(matrix)
+         inf_indices = torch.isinf(matrix)
+         nan_or_inf_indices = nan_indices | inf_indices
+         num_nan_or_inf =torch.sum(nan_or_inf_indices).item()
+         print("Matrix contains NaN or Inf elements. Cannot compute eigenvalues:{}".format(num_nan_or_inf))
+    else:
+        eigenvalues, eigenvectors = torch.linalg.eig(matrix)
+    
+   
+    # sorted_indices = torch.argsort(eigenvalues.real, descending=True)  # 对特征值进行降序排列
+    sorted_indices = torch.argsort(eigenvalues.real)  # 对特征值进行升序排列
+    sorted_eigenvectors = eigenvectors[:, sorted_indices]
+    # 选择前k个特征向量
+    top_k_eigenvectors = sorted_eigenvectors[:, :k]
+    
+    return top_k_eigenvectors
+
+
+
+
+def top_k_eigvec_np(matrix, k):
+    """
+    计算矩阵的前k个特征向量，并按特征值从大到小排序。
+    
+    参数：
+    matrix (numpy.ndarray): 输入的矩阵。
+    k (int): 要选择的特征向量数量。
+    
+    返回：
+    top_k_eigenvectors (numpy.ndarray): 排序后的前k个特征向量。
+    write by liubo 2023-08-10 (由chatgpt生成)
+    """
+    # 计算特征向量和特征值
+    eigenvalues, eigenvectors = torch.linalg.eig(matrix)
+    
+    # 对特征值进行排序
+    sorted_indices = torch.argsort(eigenvalues.real)[::-1]
+    sorted_eigenvectors = eigenvectors[:, sorted_indices]
+    
+    # 选择前k个特征向量
+    top_k_eigenvectors = sorted_eigenvectors[:, :k]
+    
+    return top_k_eigenvectors
+
 
 def logger_init(log_file_name='monitor',
                  log_level=logging.DEBUG,

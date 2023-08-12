@@ -5,7 +5,7 @@ betaList: [2] #目前最好-在qmnist上最好
 # betaList: [1, 2, 2.5, 3, 3.5, 4, 4.5]
 # tau: 0.5 # 0, 0.1 , 0.2, 0.5 
 # betaList: [3.5, 4]
-batch_size: 2048 #
+batch_size: 2048 # 在mnist上测试了4096，效果跟2048差不多
 # datasets:  ["QMNIST"] #"MNIST","USPS","FashionMNIST","Letters","Digits"
 # datasets:  ["Digits"] #"MNIST","USPS","FashionMNIST","Letters","Digits"
 # datasets:  ["MNIST","Digits","USPS","COIL","QMNIST","FashionMNIST","Letters"] #"MNIST","USPS","FashionMNIST","Letters","Digits"
